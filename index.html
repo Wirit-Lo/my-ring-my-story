@@ -46,6 +46,7 @@
 <!-- ========== App ========== -->
 <main class="phone" id="app">
 <div class="bg" id="bg" aria-hidden="true"><div data-d="6"></div><div data-d="12"></div><div data-d="20"></div></div>
+<div class="topfade" aria-hidden="true"></div>
 <button class="back" id="back" aria-label="ย้อนกลับ" style="display:none" onclick="back()"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
 
 <!-- 01 Welcome -->
@@ -79,7 +80,7 @@
  <div class="card"><h3>🔔 การเตือน</h3><div class="chips" id="fv"></div><div class="row"><div><label class="lb" for="fq1">ช่วงเงียบ: ตั้งแต่</label><input type="time" id="fq1"></div><div><label class="lb" for="fq2">ถึง</label><input type="time" id="fq2"></div></div><p class="text-xs mt-s">ในช่วงเงียบ แอปจะไม่เปิดหน้าเตือนและไม่สั่งให้แหวนสั่น</p></div>
  <div class="card mystic" id="psum"></div>
  <label class="check"><input type="checkbox" id="fc"><span>ฉันเข้าใจและยินยอมให้ใช้ข้อมูลนี้ในการคำนวณภายในแอป</span></label>
- <button class="btn pri" onclick="saveProfile()">บันทึกและไปต่อ →</button>
+ <button class="btn pri is-off" id="saveP" onclick="saveProfile()">บันทึกและไปต่อ →</button>
  <button class="btn sec danger" onclick="wipeAll()">ลบข้อมูลทั้งหมดในเครื่องนี้</button>
 </section>
 
