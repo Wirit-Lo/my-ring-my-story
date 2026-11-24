@@ -1,0 +1,14 @@
+{
+  "name": "My Ring, My Story",
+  "short_name": "My Ring",
+  "description": "ดูแลสุขภาพในแบบที่เป็นคุณ — Wellness · Lifestyle · Your Story",
+  "lang": "th",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#eee9fa",
+  "theme_color": "#e6e0f8",
+  "icons": [
+    { "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

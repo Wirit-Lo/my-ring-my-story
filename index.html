@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>My Ring, My Story</title>
+<meta name="description" content="แหวนอัจฉริยะที่ช่วยติดตามพฤติกรรม วิเคราะห์สุขภาพ และเตือนให้คุณพักในเวลาที่เหมาะสม พร้อม Daily Fortune และออกแบบแหวนในแบบของคุณ">
+<meta name="theme-color" content="#e6e0f8">
+<meta name="color-scheme" content="light">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="My Ring">
+<meta property="og:type" content="website">
+<meta property="og:title" content="My Ring, My Story">
+<meta property="og:description" content="ดูแลสุขภาพในแบบที่เป็นคุณ — Wellness · Lifestyle · Your Story">
+<meta property="og:image" content="images/hero.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="images/hero.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="preload" href="images/hero.png" as="image">
+<link rel="stylesheet" href="css/style.css">
+<script src="js/app.js" defer></script>
+</head>
+<body>
+<div class="stage">
+
+<!-- ========== Desktop intro panel (hidden on mobile) ========== -->
+<aside class="intro" aria-label="เกี่ยวกับแอป">
+ <p class="tag">✦ Wellness &nbsp; ✦ Lifestyle &nbsp; ✦ Your Story</p>
+ <h1 class="intro-title">My Ring,<br>My Story</h1>
+ <p class="intro-lead">แหวนอัจฉริยะที่ช่วยติดตามพฤติกรรม วิเคราะห์สุขภาพ และเตือนให้คุณพักในเวลาที่เหมาะสม</p>
+ <ul class="intro-list">
+  <li><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7a4.3 4.3 0 0 1 7.5 2.8C19.5 15.4 12 20 12 20z"/></svg></span><div><b>Wellness Score</b>สรุปการนอน การเคลื่อนไหว ชีพจร และการพักในคะแนนเดียว</div></li>
+  <li><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12c0-3.5 2.5-6 6-6 0 3.5-2.5 6-6 6zM12 12c0-3.5-2.5-6-6-6 0 3.5 2.5 6 6 6zM12 12v8"/></svg></span><div><b>Lucky Break</b>เตือนพักอัตโนมัติตามจังหวะของคุณ พร้อมกิจกรรม 3 นาที</div></li>
+  <li><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.9 5.6L19.5 10.5l-5.6 1.9L12 18l-1.9-5.6L4.5 10.5l5.6-1.9z"/><path d="M18.5 15.5l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7z"/></svg></span><div><b>Daily Fortune</b>ดวงประจำวัน Lucky Color และ Affirmation เติมแรงใจ</div></li>
+  <li><span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="14.5" r="6"/><path d="M9.5 5.5L12 3l2.5 2.5L12 8z"/></svg></span><div><b>My Ring</b>ออกแบบสีและชื่อบนแหวน หรือออกแบบคู่กับคนพิเศษ</div></li>
+ </ul>
+ <p class="intro-note">ใช้งานได้ดีที่สุดบนมือถือ · ข้อมูลทั้งหมดเก็บในเบราว์เซอร์ของคุณเท่านั้น</p>
+</aside>
+
+<!-- ========== App ========== -->
+<main class="phone" id="app">
+<div class="bg" id="bg" aria-hidden="true"><div data-d="6"></div><div data-d="12"></div><div data-d="20"></div></div>
+<button class="back" id="back" aria-label="ย้อนกลับ" style="display:none" onclick="back()"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+
+<!-- 01 Welcome -->
+<section class="pg center" id="p1">
+ <div class="vstack">
+  <p class="tag">✦ Wellness &nbsp; ✦ Lifestyle &nbsp; ✦ Your Story</p>
+  <div id="wRing" class="wring"></div>
+  <h1 class="mt-m">My Ring, My Story</h1>
+  <h2 class="mt-xs">สวัสดี<span id="wHello"></span></h2>
+  <p class="text-ink">ดูแลสุขภาพในแบบที่เป็นคุณ</p>
+  <p class="text-sm mt-xs">แหวนอัจฉริยะที่ช่วยติดตามพฤติกรรม วิเคราะห์ และเตือนให้คุณพักในเวลาที่เหมาะสม</p>
+  <div class="card mystic quote w-full" onclick="nextQuote()" role="button" tabindex="0"><p class="tag">✦ พลังบวกของวัน</p><p class="qt"></p></div>
+  <button class="btn pri" onclick="profFrom=1;go(11)">เริ่มต้นใช้งาน →</button>
+  <button class="btn sec btn-tight" id="wBk" style="display:none" onclick="go(10,1)">← กลับไปหน้า My Ring</button>
+ </div>
+</section>
+
+<!-- 11 Profile -->
+<section class="pg sub-page" id="p11">
+ <header class="page-head"><h1>ข้อมูลส่วนตัว</h1><p>ใช้คำนวณเป้าหมายและวิเคราะห์สุขภาพให้เหมาะกับคุณ</p></header>
+ <div class="card mystic"><h3>🔒 ความเป็นส่วนตัวของข้อมูล</h3><p class="text-sm text-ink mt-xs">ข้อมูลที่คุณกรอกและค่าจากแหวนถูกเก็บในเบราว์เซอร์ของเครื่องนี้เท่านั้น ไม่ถูกส่งไปที่อื่น ใช้เพื่อคำนวณเป้าหมาย คะแนน และคำแนะนำในแอปนี้ และคุณลบข้อมูลทั้งหมดได้ทุกเมื่อที่ปุ่มด้านล่างสุดของหน้านี้</p></div>
+ <div class="card form">
+  <label class="lb" for="fn">ชื่อเล่น</label><input type="text" id="fn" maxlength="14" placeholder="ชื่อเล่น" autocomplete="nickname">
+  <label class="lb" for="fd">วันเกิด</label><input type="date" id="fd">
+  <div class="row"><div><label class="lb" for="fh">ส่วนสูง (ซม.)</label><input type="number" id="fh" inputmode="decimal" min="120" max="220"></div><div><label class="lb" for="fw">น้ำหนัก (กก.)</label><input type="number" id="fw" inputmode="decimal" min="30" max="200"></div></div>
+  <span class="lb">เพศ (ใช้คำนวณพลังงานพื้นฐาน)</span><div class="chips chips-flush" id="fx"></div>
+  <span class="lb">ระดับกิจกรรม</span><div id="fa"></div>
+  <label class="lb" for="fs">การนอนเมื่อคืน (ชั่วโมง)</label><input type="number" id="fs" step="0.1" min="0" max="14" inputmode="decimal">
+  <span class="lb">ให้เตือนพัก</span><div class="chips chips-flush" id="fb"></div>
+ </div>
+ <div class="card"><h3>🔔 การเตือน</h3><div class="chips" id="fv"></div><div class="row"><div><label class="lb" for="fq1">ช่วงเงียบ: ตั้งแต่</label><input type="time" id="fq1"></div><div><label class="lb" for="fq2">ถึง</label><input type="time" id="fq2"></div></div><p class="text-xs mt-s">ในช่วงเงียบ แอปจะไม่เปิดหน้าเตือนและไม่สั่งให้แหวนสั่น</p></div>
+ <div class="card mystic" id="psum"></div>
+ <label class="check"><input type="checkbox" id="fc"><span>ฉันเข้าใจและยินยอมให้ใช้ข้อมูลนี้ในการคำนวณภายในแอป</span></label>
+ <button class="btn pri" onclick="saveProfile()">บันทึกและไปต่อ →</button>
+ <button class="btn sec danger" onclick="wipeAll()">ลบข้อมูลทั้งหมดในเครื่องนี้</button>
+</section>
+
+<!-- 02 Goals -->
+<section class="pg sub-page" id="p2">
+ <header class="page-head"><h1>วันนี้คุณอยากดูแลอะไรเป็นพิเศษ?</h1><p>เลือกสิ่งที่สำคัญกับคุณในวันนี้</p></header>
+ <div id="goals"></div>
+ <button class="btn pri" onclick="go(3)">ถัดไป →</button>
+</section>
+
+<!-- 03 Home -->
+<section class="pg has-nav" id="p3">
+ <header class="page-head">
+  <div class="row-between"><h1 id="hello">สวัสดีตอนเช้า ☀️</h1><button class="avatar" onclick="profFrom=0;go(11)" aria-label="ข้อมูลส่วนตัว">👤</button></div>
+  <p>วันนี้เรามาดูแลตัวเองกันนะ <span id="goalTag" class="mini" style="display:none"></span></p>
+ </header>
+ <div class="card mystic quote" onclick="nextQuote()" role="button" tabindex="0"><p class="tag">✦ พลังบวกของวัน</p><p class="qt"></p></div>
+ <div class="card warn" id="warnH" style="display:none"></div>
+
+ <div class="card score-card">
+  <div class="score"><svg viewBox="0 0 150 150" width="150" height="150" aria-hidden="true"><defs><linearGradient id="sg" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#8fc5ea"/><stop offset=".55" stop-color="#8fdcc0"/><stop offset="1" stop-color="#b9a6ee"/></linearGradient></defs><circle cx="75" cy="75" r="62" fill="none" stroke="#e8e6f5" stroke-width="12"/><circle cx="75" cy="75" r="62" fill="none" stroke="url(#sg)" stroke-width="12" stroke-linecap="round" id="scArc" stroke-dasharray="389" stroke-dashoffset="70" transform="rotate(-90 75 75)"/></svg><b><span id="sc1">82</span><i id="sc1l">ดี</i></b></div>
+  <div class="score-side">
+   <p class="eyebrow">Wellness Score</p>
+   <div class="link-row" onclick="go(12)" role="button" tabindex="0">
+    <div class="row-between"><h3>⭐ Wellness Mission</h3><span class="mini mini-flush" id="hLv"></span></div>
+    <p class="text-sm" id="hMs"></p>
+    <div class="bar"><i id="hBar" style="width:0"></i></div>
+   </div>
+  </div>
+ </div>
+
+ <h3 class="section-title">ภาพรวมวันนี้</h3>
+ <div class="grid">
+  <div class="card stat"><p>❤️ Heart Rate</p><div class="big" id="hr1">72</div><small>BPM</small></div>
+  <div class="card stat"><p>🌙 การนอน</p><div class="big" id="sl1">7 ชม.</div><small id="sl2">20 นาที</small></div>
+  <div class="card stat"><p>🚶 การเคลื่อนไหว</p><div class="big" id="st1">6,240</div><small>ก้าว</small></div>
+  <div class="card stat"><p>🌡️ อุณหภูมิผิว</p><div class="big" id="tmp1">ปกติ</div><small id="tmp2">&nbsp;</small></div>
+ </div>
+
+ <div class="card"><p class="eyebrow">เวลาพักครั้งถัดไป</p><div class="big big-xl" id="nb1">25 นาที</div><p class="text-sm" id="nb2">จากพฤติกรรมของคุณ ระบบแนะนำให้พักในอีก 25 นาที</p>
+  <div class="row mt-m"><button class="btn sec btn-tight" onclick="go(9)">ดูแผนการพัก</button><button class="btn pri btn-tight" onclick="simDue()">▶ จำลองแจ้งเตือน</button></div></div>
+ <div class="card mystic"><h3>✨ วันนี้ของคุณ</h3><p class="text-ink mt-xs">วันนี้เหมาะกับการค่อย ๆ ทำ ไม่ต้องรีบทุกอย่างพร้อมกัน</p>
+  <button class="btn gold btn-tight mt-m" onclick="go(7)">ดูดวงวันนี้ →</button></div>
+</section>
+
+<!-- 04 Break alert -->
+<section class="pg center sub-page theme-calm" id="p4">
+ <div class="vstack">
+  <div class="alert-visual"><i class="wave"></i><i class="wave"></i><i class="wave"></i><div class="ringbox glow"></div></div>
+  <h1>ถึงเวลาพักแล้ว ✨</h1>
+  <p class="mt-s">จากพฤติกรรมการใช้งานของคุณ ระบบแนะนำให้พักสักครู่</p>
+  <p class="text-sm mt-xs">〰️ แหวนกำลังสั่นเพื่อแจ้งเตือน 〰️</p>
+  <div class="card w-full"><h3 id="workmin">ทำงานต่อเนื่อง 82 นาที</h3></div>
+  <button class="btn gold" onclick="go(5)">เริ่ม Lucky Break ✨</button>
+  <button class="btn sec btn-tight" onclick="go(3,1)">พักทีหลัง</button>
+ </div>
+</section>
+
+<!-- 05 Lucky Break -->
+<section class="pg has-nav" id="p5">
+ <header class="page-head"><h1>✨ Lucky Break</h1><p>พักสั้น ๆ เพื่อเติมพลังให้ตัวเอง</p></header>
+ <div class="card mystic compact"><p class="text-ink">วันนี้เหมาะกับ: <b>การงาน 💼</b></p></div>
+ <div class="row-between section-title"><h3>กิจกรรม 3 นาที</h3><span class="mini mini-flush" id="prog">0 / 3</span></div>
+ <button class="opt act"><span class="e">🌬️</span><div>หายใจลึก ๆ 5 ครั้ง<small>แตะเมื่อทำเสร็จ</small></div></button>
+ <button class="opt act"><span class="e">🚶</span><div>ลุกเดิน 2 นาที<small>แตะเมื่อทำเสร็จ</small></div></button>
+ <button class="opt act"><span class="e">👁️</span><div>พักสายตา 30 วินาที<small>แตะเมื่อทำเสร็จ</small></div></button>
+ <div class="card mystic"><h3>✨ Wellness Fortune</h3><p class="text-ink mt-xs">วันนี้พลังของคุณเหมาะกับการเริ่มต้นสิ่งใหม่แบบค่อยเป็นค่อยไป</p><p class="italic mt-s">“ฉันพร้อมรับโอกาสใหม่ ๆ และทำสิ่งต่าง ๆ ได้อย่างมั่นใจ”</p></div>
+ <button class="btn pri" onclick="go(6)">เริ่มพัก 3 นาที →</button>
+</section>
+
+<!-- 06 Break done -->
+<section class="pg center sub-page" id="p6">
+ <div id="burst" class="burst"></div>
+ <svg class="done-visual" viewBox="0 0 200 150" width="230" aria-hidden="true"><defs><radialGradient id="rg"><stop offset="0" stop-color="#fff"/><stop offset=".6" stop-color="#e5dcfa"/><stop offset="1" stop-color="#e5dcfa00"/></radialGradient></defs><circle class="glow" cx="100" cy="75" r="70" fill="url(#rg)" style="transform-origin:100px 75px"/><circle cx="100" cy="75" r="34" fill="none" stroke="#c9a24b" stroke-width="1.5" opacity=".6"/><text x="92" y="84" font-size="26">✨</text><text x="36" y="40" fill="#c9a24b" font-size="12">✦</text><text x="156" y="52" fill="#b9a6ee" font-size="10">✦</text><text x="150" y="124" font-size="16">🍃</text><text x="30" y="116" font-size="16">🌿</text></svg>
+ <h1>พักเรียบร้อยแล้ว 🎉</h1>
+ <p class="mt-xs">คุณใช้เวลา 3 นาที เพื่อดูแลตัวเอง</p>
+ <div class="row stats3 w-full">
+  <div class="card"><p>🔥 Streak</p><div class="big" id="strk">4 วัน</div></div>
+  <div class="card"><p>☕ Breaks</p><div class="big" id="brk">4 / 5</div></div>
+  <div class="card"><p>✨ Points</p><div class="big text-gold" id="pts">+20</div></div>
+ </div>
+ <h3 class="mt-l">ตอนนี้คุณรู้สึกดีขึ้นไหม?</h3>
+ <div class="row mt-s w-full" id="feel"><button class="chip">😊 ดีขึ้น</button><button class="chip">😐 เหมือนเดิม</button><button class="chip">😫 ยังเหนื่อย</button></div>
+ <button class="btn pri" onclick="saveFeel()">บันทึก</button>
+</section>
+
+<!-- 07 Daily Fortune -->
+<section class="pg has-nav theme-mystic" id="p7">
+ <header class="page-head"><h1>✨ Daily Fortune</h1><p>วันนี้จักรวาลอยากบอกอะไรกับคุณ?</p></header>
+ <div class="card mystic center hero-card"><svg viewBox="0 0 260 70" width="100%" aria-hidden="true"><path d="M30 50 L90 22 L140 38 L200 14 L238 44" stroke="#c9a24b" stroke-width="1" fill="none" stroke-dasharray="3 3"/><g fill="#c9a24b"><circle cx="30" cy="50" r="3"/><circle cx="90" cy="22" r="3"/><circle cx="140" cy="38" r="3"/><circle cx="200" cy="14" r="3"/><circle cx="238" cy="44" r="3"/></g><path d="M126 10a14 14 0 1 0 14 14 11 11 0 0 1-14-14z" fill="#e9dca8" transform="translate(-40 8)"/></svg><h3>ดวงประจำวันของคุณ</h3></div>
+ <div class="grid">
+  <div class="card"><p>💼 การงาน</p><div class="stars5">★★★★☆</div></div>
+  <div class="card"><p>💰 การเงิน</p><div class="stars5">★★★☆☆</div></div>
+  <div class="card"><p>💕 ความรัก</p><div class="stars5">★★★★☆</div></div>
+  <div class="card"><p>🧘 สุขภาพ</p><div class="stars5">★★★★★</div></div>
+ </div>
+ <div class="card"><p class="text-ink">วันนี้เหมาะกับการค่อย ๆ จัดลำดับสิ่งสำคัญ อย่ากดดันตัวเองมากเกินไป</p></div>
+ <h3 class="section-title">สิ่งนำโชควันนี้</h3>
+ <div class="grid">
+  <div class="card mystic"><p>🎨 Lucky Color</p><h3>Lavender</h3></div>
+  <div class="card mystic"><p>🍀 Lucky Number</p><h3>9</h3></div>
+  <div class="card mystic"><p>🌿 Lucky Element</p><h3>ธรรมชาติ</h3></div>
+  <div class="card mystic"><p>💎 Lucky Item</p><h3>เครื่องประดับสีม่วง</h3></div>
+ </div>
+ <div class="card mystic" id="affCard" style="display:none"><p class="tag">Affirmation ของฉัน</p><p id="aff" class="text-ink italic mt-xs"></p></div>
+ <button class="btn gold" onclick="go(8)">ดู Lucky Lifestyle →</button>
+ <button class="btn sec btn-tight" onclick="makeAff()">สร้าง Affirmation ของฉัน</button>
+ <p class="disclaimer">เพื่อความบันเทิงและแรงบันดาลใจ ไม่ใช่การวินิจฉัยสุขภาพหรือการทำนายที่แน่นอน</p>
+</section>
+
+<!-- 08 Lucky Lifestyle -->
+<section class="pg has-nav sub-page theme-mystic-soft" id="p8">
+ <header class="page-head"><h1>✨ Lucky Lifestyle</h1><p>เปลี่ยนความเชื่อให้เป็นแรงบันดาลใจในทุกวัน</p></header>
+ <div id="lcard" class="card mystic lucky-card">
+  <p>🎨 Lucky Color</p><h3 id="lkc"></h3>
+  <p>💎 Lucky Item</p><h3 id="lki"></h3>
+  <p>🌿 Lucky Activity</p><h3 id="lka"></h3>
+  <p>💬 Affirmation</p><p class="text-ink italic" id="lkf"></p>
+  <p class="tag lucky-sign">My Ring, My Story ✦</p></div>
+ <div class="row"><button class="btn sec" onclick="nextLK()">🔄 สุ่มใหม่</button><button class="btn sec" onclick="makeCard()">แชร์การ์ด</button></div>
+ <button class="btn gold btn-tight" id="rtn" onclick="addRtn()">เพิ่มลงใน My Routine</button>
+ <div class="card" id="routine" style="display:none"><h3>My Routine</h3><p class="mt-xs"><span id="rtxt">🌿 เดินเล่นในสวน 10 นาที · ทุกวัน</span></p></div>
+</section>
+
+<!-- 09 Health -->
+<section class="pg has-nav sub-page" id="p9">
+ <header class="page-head"><h1>สุขภาพของฉัน</h1><p>ภาพรวมและแนวโน้มจากข้อมูลของคุณ</p></header>
+ <div class="grid">
+  <div class="card stat"><p>Wellness Score</p><div class="big" id="sc2">82</div><small id="sc2l">ดี</small></div>
+  <div class="card stat"><p>Heart Rate</p><div class="big" id="hr2">72</div><small>BPM</small></div>
+  <div class="card stat"><p>Movement</p><div class="big" id="st2">6,240</div><small>steps</small></div>
+  <div class="card stat"><p>Breaks</p><div class="big" id="brk2">4 / 5</div><small>ครั้ง</small></div>
+ </div>
+ <div class="card stat"><p>Sleep</p><div class="big" id="sl3">7h 20m</div></div>
+ <div class="card warn" id="warn" style="display:none"></div>
+ <div class="card" id="wkc"></div>
+ <div class="card" id="analysis"></div>
+ <button class="btn pri" id="pb" onclick="this.textContent='✓ ตั้งเวลาพักเฉพาะบุคคลแล้ว';toast('จะเตือนพักทุก '+P.brk+' นาที (เปลี่ยนได้ที่ข้อมูลส่วนตัว)')">ตั้งเวลาพักเฉพาะบุคคล</button>
+</section>
+
+<!-- 10 My Ring -->
+<section class="pg has-nav sub-page" id="p10">
+ <header class="page-head"><h1>My Ring, My Story</h1><p>ออกแบบแหวนให้เป็นตัวคุณ</p></header>
+ <div class="card center prev"><img id="pvImg" alt="แหวนของฉัน"><div id="pvEng"></div><p id="pvTxt" class="text-sm mt-xs"></p></div>
+ <div class="card"><h3>เลือกสีแหวน</h3><p class="text-sm">เลือกสี เลือกวัสดุ ที่เป็นคุณ</p><div class="tiles" id="cols"></div></div>
+ <div class="card"><label for="dn"><h3>ชื่อบนแหวน</h3></label><p class="text-sm">ชื่อหรืออักษรย่อที่จะแสดงบนแหวนของคุณ</p><input type="text" id="dn" maxlength="14" placeholder="เช่น Mint หรือ A♥" oninput="updPrev()" class="mt-m"></div>
+ <button class="btn gold" onclick="saveDesign()">บันทึกดีไซน์</button>
+ <div class="card link-card" onclick="go(13)" role="button" tabindex="0"><div><h3>💞 Couple Ring</h3><p class="text-sm">ออกแบบคู่กัน…เพื่อเรื่องราวของเรา</p></div><span class="chev" aria-hidden="true">›</span></div>
+ <div class="card mystic"><h3>🔗 เชื่อมต่อแหวนจริง</h3><p class="text-sm">เชื่อมแหวนที่รองรับ Bluetooth Heart Rate เพื่อดูชีพจรสดในแอป</p>
+  <div class="live"><div class="big" id="hrLive">--</div><small>BPM</small><svg viewBox="0 0 200 44" aria-hidden="true"><polyline id="sp" fill="none" stroke="#a996ea" stroke-width="2" stroke-linecap="round" points=""/></svg></div>
+  <p class="text-xs mt-xs"><span id="btDot" class="bt-dot"></span><span id="btSt">ยังไม่ได้เชื่อมต่อ</span></p>
+  <div class="row mt-s"><button class="btn gold btn-tight" id="btBtn" onclick="btToggle()">เชื่อมต่อแหวน</button><button class="btn sec btn-tight" id="simBtn" onclick="simToggle()">โหมดจำลอง</button></div></div>
+</section>
+
+<!-- 12 Mission -->
+<section class="pg has-nav sub-page" id="p12">
+ <header class="page-head"><h1>Wellness Mission</h1><p>สะสมแต้มจากการดูแลตัวเอง แล้วแลกของตกแต่ง</p></header>
+ <div id="gm"></div>
+</section>
+
+<!-- 13 Couple -->
+<section class="pg has-nav sub-page" id="p13">
+ <header class="page-head"><h1>💞 Couple Ring</h1><p>ออกแบบคู่กัน…เพื่อเรื่องราวของเรา</p></header>
+ <div class="card"><div class="cp" id="cpv"></div><p class="cp-title" id="cpt">A + B = AB</p></div>
+ <div class="card"><h3>แหวนของคุณ (A)</h3><div class="chips" id="cpa"></div><input type="text" id="cpan" maxlength="12" placeholder="ชื่อหรืออักษรย่อ" aria-label="ชื่อบนแหวน A" class="mt-m"></div>
+ <div class="card"><h3>แหวนของคนพิเศษ (B)</h3><div class="chips" id="cpb"></div><input type="text" id="cpbn" maxlength="12" placeholder="ชื่อหรืออักษรย่อ" aria-label="ชื่อบนแหวน B" class="mt-m"></div>
+ <div class="card mystic"><h3>Couple Mode</h3><p class="text-sm text-ink mt-xs">ใช้แอปแยกกัน ไม่ต้องแชร์ข้อมูลสุขภาพทั้งหมด เลือกแชร์ได้เฉพาะสิ่งที่อยากแชร์</p><div class="chips" id="cps"></div><p class="text-xs mt-s">ตอนนี้เป็นการออกแบบและจำลองการจับคู่ ยังไม่ได้เชื่อมบัญชีหรืออุปกรณ์ของอีกคนจริง</p></div>
+ <button class="btn gold" onclick="saveCouple()">บันทึกดีไซน์คู่</button>
+</section>
+
+<!-- Bottom nav -->
+<nav class="nav" id="nav" aria-label="เมนูหลัก">
+ <button data-t="3" onclick="go(3,1)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11l8-7 8 7v8.5a1.5 1.5 0 0 1-1.5 1.5H15v-6H9v6H5.5A1.5 1.5 0 0 1 4 19.5z"/></svg>หน้าหลัก</button>
+ <button data-t="9" onclick="go(9,1)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7a4.3 4.3 0 0 1 7.5 2.8C19.5 15.4 12 20 12 20z"/></svg>สุขภาพ</button>
+ <button data-t="7" class="m" onclick="go(7,1)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.9 5.6L19.5 10.5l-5.6 1.9L12 18l-1.9-5.6L4.5 10.5l5.6-1.9z"/><path d="M18.5 15.5l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7z"/></svg>Mystic</button>
+ <button data-t="5" onclick="go(5,1)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12c0-3.5 2.5-6 6-6 0 3.5-2.5 6-6 6zM12 12c0-3.5-2.5-6-6-6 0 3.5 2.5 6 6 6zM12 12v8"/></svg>Lucky Break</button>
+ <button data-t="10" onclick="go(10,1)"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="14.5" r="6"/><path d="M9.5 5.5L12 3l2.5 2.5L12 8z"/></svg>My Ring</button>
+</nav>
+
+<div class="ov" id="ov" role="dialog" aria-label="Lucky Card"><img id="lcImg" alt="Lucky Card"><p class="ov-hint">กดค้างที่รูปเพื่อบันทึก หรือกดแชร์</p><div class="row w-full"><button class="btn pri btn-flush" onclick="sendCard()">แชร์</button><button class="btn sec btn-flush" onclick="$('#ov').classList.remove('on')">ปิด</button></div></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+</main>
+</div>
+</body>
+</html>
