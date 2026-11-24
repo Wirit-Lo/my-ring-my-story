@@ -1,7 +1,7 @@
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let cur=1,stack=[],breaks=4;
-const navPages=[3,5,7,8,9,10,12,13];
+const navPages=[3,5,7,8,9,10,12,13,14];
 const IMG={"silver": "images/img-silver.jpg", "black": "images/img-black.jpg", "rose": "images/img-rose.jpg", "gold": "images/img-gold.jpg", "pink": "images/img-pink.jpg", "classic": "images/img-classic.jpg", "flat": "images/img-flat.jpg", "wave": "images/img-wave.jpg", "star": "images/img-star.jpg", "lotus": "images/img-lotus.jpg", "moon": "images/img-moon.jpg"};
 const metals={Pink:['#ffe9ef','#e8a9bb','#f9cfdb'],Silver:['#f4f6fa','#aab3c2','#e6eaf2'],Gold:['#fff0b8','#c9a24b','#f4dc93'],Black:['#6b6b78','#1d1d26','#4a4a58'],'Rose Gold':['#ffe1da','#c98f86','#f3c5bd']};
 const symbols={Moon:'🌙',Star:'⭐',Flower:'🌸',Butterfly:'🦋',Sun:'☀️'};
@@ -63,7 +63,7 @@ const e=$('#pts');let n=0;clearInterval(e._t);e._t=setInterval(()=>{n=Math.min(S
 function drawMy(){$$('.ringbox').forEach(e=>e.innerHTML=ring(my.color,symbols[my.sym],''));updPrev()}
 function go(n,reset){if(reset)stack=[];else if(cur!==n)stack.push(cur);show(n)}
 function back(){show(stack.pop()||3)}
-function show(n){cur=n;if(n==3||n==9)renderAll();if(n==4){brkTick();btAlert()}if(n==6){breakDone();setTimeout(celebrate,60)}if(n==9)renderWeek();if(n==12)renderRewards();if(n==13)renderCouple();$$('.pg').forEach(p=>p.classList.remove('on'));const p=$('#p'+n);p.classList.add('on');p.scrollTop=0;
+function show(n){cur=n;if(n==3||n==9)renderAll();if(n==4){brkTick();btAlert()}if(n==6){breakDone();setTimeout(celebrate,60)}if(n==9)renderWeek();if(n==12)renderRewards();if(n==13)renderCouple();if(n==14)ringPage();else if(typeof ringStopCam=='function')ringStopCam();$$('.pg').forEach(p=>p.classList.remove('on'));const p=$('#p'+n);p.classList.add('on');p.scrollTop=0;
 $('#nav').classList.toggle('show',navPages.includes(n));$('#back').style.display=[1,2,3].includes(n)?'none':'block';if(n==2)$('#back').style.display='block';
 $$('#nav button').forEach(b=>b.classList.toggle('on',+b.dataset.t===n||(n==8&&b.dataset.t==7)))}
 function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('on');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('on'),2000)}
@@ -107,7 +107,7 @@ const km=S.steps*c.stride/1000,zp=S.hr/c.hrmax*100;
 $('#analysis').innerHTML='<h3>การวิเคราะห์จากข้อมูลของฉัน</h3>'+(P.saved?'':'<p class="tag" style="margin-top:4px">ใช้ค่าตั้งต้นอยู่ — กรอกข้อมูลส่วนตัวเพื่อให้แม่นยำขึ้น</p>')+rw('อายุ',c.a+' ปี')+rw('BMI',c.bmi.toFixed(1)+' · '+c.cat)+rw('พลังงานพื้นฐาน (BMR)',Math.round(c.bmr).toLocaleString()+' kcal/วัน')+rw('พลังงานที่ใช้ต่อวัน (TDEE)',Math.round(c.tdee).toLocaleString()+' kcal')+rw('ชีพจรสูงสุด (โดยประมาณ)',Math.round(c.hrmax)+' BPM')+rw('ชีพจรตอนนี้',S.hr+' BPM · โซน'+zone(zp)+' ('+Math.round(zp)+'%)')+rw('ก้าว (เป้า '+c.stepGoal.toLocaleString()+')',Math.round(sT*100)+'% · '+km.toFixed(2)+' กม. · ≈'+Math.round(0.57*P.w*km)+' kcal')+rw('การนอน (เป้า '+c.sleepGoal+' ชม.)',Math.round(sS*100)+'%')+rw('การพักวันนี้',Math.round(sB*100)+'%')+rw('คะแนนจากชีพจร',Math.round(sH*100)+'%')+'<p style="font-size:11.5px;margin-top:10px">คะแนน = นอน 30% + ก้าว 30% + พัก 20% + ชีพจร 20% คำนวณจากสูตร Mifflin-St Jeor และ Tanaka เป็นค่าประมาณเพื่อการดูแลตัวเอง ไม่ใช่การวินิจฉัยทางการแพทย์</p>';checkMissions();trackDay();renderG();if(cur==9)renderWeek()}
 function brkTick(){const el=(Date.now()-S.last)/60000,left=Math.max(0,Math.ceil(P.brk-el)),T=(i,v)=>{const e=document.getElementById(i);if(e)e.textContent=v};T('nb1',left>0?left+' นาที':'ถึงเวลาแล้ว');T('nb2',left>0?'เตือนให้พักทุก '+P.brk+' นาที · ผ่านไปแล้ว '+Math.floor(el)+' นาที':'ทำงานต่อเนื่องมานานแล้ว ถึงเวลาพักสักครู่');T('workmin','ทำงานต่อเนื่อง '+Math.max(1,Math.floor(el))+' นาที');if(left==0&&!S.alerted&&cur==3&&P.auto&&!quiet()){S.alerted=1;go(4)}}
 function simDue(){S.last=Date.now()-P.brk*60000;S.alerted=1;go(4)}
-function btAlert(){try{if(P.vib&&!quiet()&&bt.alert&&bt.dev&&bt.dev.gatt.connected)bt.alert.writeValue(Uint8Array.of(1))}catch(e){}}
+function btAlert(){if(P.vib&&!quiet()&&typeof ringAlert=='function')ringAlert()}
 // ---- ข้อมูลส่วนตัว ----
 const readP=()=>({name:$('#fn').value.trim(),dob:$('#fd').value,sex:P.sex,h:+$('#fh').value,w:+$('#fw').value,act:P.act,sleep:+$('#fs').value,brk:P.brk,vib:P.vib,auto:P.auto,qs:$('#fq1').value||'22:00',qe:$('#fq2').value||'07:00'}),okP=q=>q.dob&&q.h>=120&&q.h<=220&&q.w>=30&&q.w<=200&&q.sleep>=0&&q.sleep<=14;
 function updSave(q){$('#saveP').classList.toggle('is-off',!(okP(q)&&$('#fc').checked))}
@@ -170,26 +170,11 @@ $('#fb').innerHTML=[30,45,60].map(m=>`<button class="chip${P.brk==m?' sel':''}" 
 ['fd','fh','fw','fs'].forEach(i=>$('#'+i).addEventListener('input',sumP));$('#fc').addEventListener('change',sumP);
 renderTiles();$('#cols').onclick=e=>{const b=e.target.closest('[data-v]');if(!b)return;const n=b.dataset.v;if(!has('c:'+n)){buy('c:'+n);return}my.color=n;renderTiles();drawMy()};
 $('#dn').value=D.name||P.name;initExtra();setQuotes();renderWelcome();renderAll();sumP();brkTick();setInterval(brkTick,15000)}
-const BT_SVC='12345678-1234-5678-1234-56789abcdef0',BT_TEMP='12345678-1234-5678-1234-56789abcdef1',BT_STEP='12345678-1234-5678-1234-56789abcdef2',BT_ALERT='12345678-1234-5678-1234-56789abcdef3';
 let bt={dev:null,sim:null,hist:[]};
 function setHR(v){S.hr=v;const dy=day();dy.hs+=v;dy.hn++;if(dy.hn%10==0)svG();bt.hist=[...bt.hist,v].slice(-30);const e=$('#hrLive');if(e)e.textContent=v;const h=bt.hist;if(h.length>1){const mn=Math.min(...h)-3,mx=Math.max(...h)+3;$('#sp').setAttribute('points',h.map((q,i)=>(i*200/(h.length-1)).toFixed(1)+','+(40-(q-mn)/(mx-mn)*36).toFixed(1)).join(' '))}hrWarn();renderAll()}
 function btStatus(t,ok){$('#btSt').textContent=t;$('#btDot').style.background=ok?'#6fcf97':'#c9c7d8'}
 function stopSim(){clearInterval(bt.sim);bt.sim=null;$('#simBtn').textContent='โหมดจำลอง'}
 function simToggle(){if(bt.sim){stopSim();btStatus('หยุดโหมดจำลองแล้ว',0);return}let v=72;bt.sim=setInterval(()=>{v=Math.max(62,Math.min(88,v+Math.round(Math.random()*5-2.5)));S.steps+=Math.floor(Math.random()*5);S.liveSteps=1;setHR(v)},1000);$('#simBtn').textContent='หยุดจำลอง';btStatus('โหมดจำลอง (ไม่ใช่ข้อมูลจากแหวนจริง)',1)}
-async function btToggle(){
- if(bt.dev&&bt.dev.gatt.connected){bt.dev.gatt.disconnect();return}
- if(!navigator.bluetooth){btStatus('เบราว์เซอร์นี้ไม่รองรับบลูทูธ — ใช้ Chrome บน Android หรือคอมพิวเตอร์ หรือลองโหมดจำลอง',0);return}
- try{btStatus('กำลังค้นหาอุปกรณ์…',0);
-  const d=await navigator.bluetooth.requestDevice({filters:[{services:['heart_rate']}],optionalServices:[BT_SVC]});bt.dev=d;
-  d.addEventListener('gattserverdisconnected',()=>{btStatus('ตัดการเชื่อมต่อแล้ว',0);$('#btBtn').textContent='เชื่อมต่อแหวน'});
-  const sv=await d.gatt.connect(),svc=await sv.getPrimaryService('heart_rate'),ch=await svc.getCharacteristic('heart_rate_measurement');
-  await ch.startNotifications();
-  ch.addEventListener('characteristicvaluechanged',e=>{const v=e.target.value;setHR(v.getUint8(0)&1?v.getUint16(1,true):v.getUint8(1))});
-  try{const cs=await sv.getPrimaryService(BT_SVC);
-   const tc=await cs.getCharacteristic(BT_TEMP);await tc.startNotifications();tc.addEventListener('characteristicvaluechanged',e=>{S.temp=e.target.value.getInt16(0,true)/100;renderAll()});
-   const sc=await cs.getCharacteristic(BT_STEP);await sc.startNotifications();sc.addEventListener('characteristicvaluechanged',e=>{S.steps=e.target.value.getUint32(0,true);S.liveSteps=1;renderAll()});try{bt.alert=await cs.getCharacteristic(BT_ALERT)}catch(_){}}catch(_){}
-  if(bt.sim)stopSim();btStatus('เชื่อมต่อแล้ว: '+(d.name||'Smart Ring'),1);$('#btBtn').textContent='ตัดการเชื่อมต่อ'
- }catch(e){const n=e.name;btStatus(n=='NotFoundError'?'ยกเลิกหรือไม่พบอุปกรณ์':(n=='SecurityError'||n=='NotAllowedError')?'หน้านี้ไม่ได้รับอนุญาตให้ใช้บลูทูธ — ลองเปิดไฟล์ HTML ที่ดาวน์โหลดไว้ใน Chrome หรือใช้โหมดจำลอง':'เชื่อมต่อไม่สำเร็จ: '+e.message,0)}}
 
 (function(){const L=[...$('#bg').children],r=(a,b)=>a+Math.random()*(b-a);
 const add=(l,cls,css,html)=>{const d=document.createElement('div');d.className=cls;d.style.cssText=css;if(html)d.innerHTML=html;l.appendChild(d);return d};

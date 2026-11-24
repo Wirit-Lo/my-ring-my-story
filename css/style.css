@@ -29,6 +29,7 @@ body{
   -webkit-font-smoothing:antialiased;overflow:hidden;
 }
 img,svg{max-width:100%}
+[hidden]{display:none!important}
 button{font:inherit;color:inherit}
 h1{font-weight:500;font-size:25px;line-height:1.3;letter-spacing:-.01em}
 h2{font-weight:500;font-size:20px;line-height:1.35}
@@ -286,6 +287,17 @@ input:focus{border-color:var(--pur);box-shadow:0 0 0 4px #b9a6ee33;outline:none}
 .live small{color:var(--mut)}
 .live svg{flex:1;height:44px;min-width:0}
 .bt-dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:#c9c7d8;margin-right:6px;vertical-align:1px}
+
+/* Ring settings */
+.bt-meta{display:flex;justify-content:space-between;gap:8px;margin-top:2px}
+.rx-video{width:100%;aspect-ratio:1;object-fit:cover;border-radius:16px;margin-top:10px;background:#1d1b2b}
+.rx-log,.rx-json{font:12px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;border-radius:14px;margin-top:10px;width:100%}
+.rx-log{background:#1d1b2b;color:#e9e4ff;padding:12px;max-height:280px;overflow:auto;white-space:pre-wrap;word-break:break-all}
+.rx-json{display:block;padding:12px;border:1.5px solid #fff;background:#ffffffc0;color:var(--ink);resize:vertical;min-height:220px}
+.rx-json:focus{border-color:var(--pur);box-shadow:0 0 0 4px #b9a6ee33;outline:none}
+.rx-help{margin-top:12px;font-size:12.5px;color:var(--mut)}
+.rx-help summary{cursor:pointer;color:var(--deep)}
+.rx-help p{font-size:12px;margin-top:6px}
 
 /* Couple */
 .cp{display:flex;align-items:center;justify-content:center;gap:6px}

@@ -25,6 +25,7 @@
 <link rel="preload" href="images/hero.png" as="image">
 <link rel="stylesheet" href="css/style.css">
 <script src="js/app.js" defer></script>
+<script src="js/ring.js" defer></script>
 </head>
 <body>
 <div class="stage">
@@ -232,7 +233,9 @@
  <div class="card mystic"><h3>🔗 เชื่อมต่อแหวนจริง</h3><p class="text-sm">เชื่อมแหวนที่รองรับ Bluetooth Heart Rate เพื่อดูชีพจรสดในแอป</p>
   <div class="live"><div class="big" id="hrLive">--</div><small>BPM</small><svg viewBox="0 0 200 44" aria-hidden="true"><polyline id="sp" fill="none" stroke="#a996ea" stroke-width="2" stroke-linecap="round" points=""/></svg></div>
   <p class="text-xs mt-xs"><span id="btDot" class="bt-dot"></span><span id="btSt">ยังไม่ได้เชื่อมต่อ</span></p>
-  <div class="row mt-s"><button class="btn gold btn-tight" id="btBtn" onclick="btToggle()">เชื่อมต่อแหวน</button><button class="btn sec btn-tight" id="simBtn" onclick="simToggle()">โหมดจำลอง</button></div></div>
+  <p class="text-xs bt-meta"><span id="btProf"></span><span id="btBat"></span></p>
+  <div class="row mt-s"><button class="btn gold btn-tight" id="btBtn" onclick="btToggle()">เชื่อมต่อแหวน</button><button class="btn sec btn-tight" id="simBtn" onclick="simToggle()">โหมดจำลอง</button></div>
+  <button class="btn sec btn-tight" onclick="go(14)">⚙️ ตั้งค่าแหวน / สแกน QR</button></div>
 </section>
 
 <!-- 12 Mission -->
@@ -249,6 +252,27 @@
  <div class="card"><h3>แหวนของคนพิเศษ (B)</h3><div class="chips" id="cpb"></div><input type="text" id="cpbn" maxlength="12" placeholder="ชื่อหรืออักษรย่อ" aria-label="ชื่อบนแหวน B" class="mt-m"></div>
  <div class="card mystic"><h3>Couple Mode</h3><p class="text-sm text-ink mt-xs">ใช้แอปแยกกัน ไม่ต้องแชร์ข้อมูลสุขภาพทั้งหมด เลือกแชร์ได้เฉพาะสิ่งที่อยากแชร์</p><div class="chips" id="cps"></div><p class="text-xs mt-s">ตอนนี้เป็นการออกแบบและจำลองการจับคู่ ยังไม่ได้เชื่อมบัญชีหรืออุปกรณ์ของอีกคนจริง</p></div>
  <button class="btn gold" onclick="saveCouple()">บันทึกดีไซน์คู่</button>
+</section>
+
+<!-- 14 Ring settings -->
+<section class="pg has-nav sub-page" id="p14">
+ <header class="page-head"><h1>ตั้งค่าแหวน</h1><p>เตรียมไว้สำหรับแหวนที่ซื้อมา ตั้งครั้งเดียวใช้ได้ตลอด</p></header>
+ <div class="card mystic"><h3>โปรไฟล์ที่ใช้อยู่</h3><p class="text-sm text-ink mt-xs" id="rxCur"></p>
+  <div class="row mt-s"><button class="btn sec btn-tight" onclick="ringUse('std')">มาตรฐาน</button><button class="btn sec btn-tight" onclick="ringUse('tpl')">ตัวอย่างกำหนดเอง</button></div></div>
+ <div class="card"><h3>📷 สแกน QR ของแหวน</h3><p class="text-sm">QR ที่มีชื่ออุปกรณ์ หรือไฟล์ตั้งค่า (JSON)</p>
+  <video id="rxVideo" class="rx-video" playsinline muted hidden></video>
+  <button class="btn gold btn-tight mt-s" id="rxScanBtn" onclick="ringScanQR()">เปิดกล้องสแกน</button>
+  <input type="text" id="rxPaste" placeholder="หรือวางข้อความจาก QR ที่นี่" aria-label="ข้อความจาก QR" class="mt-m">
+  <button class="btn sec btn-tight" onclick="ringHandleQR($('#rxPaste').value)">ใช้ข้อความนี้</button></div>
+ <div class="card"><h3>🔍 สำรวจอุปกรณ์</h3><p class="text-sm">เชื่อมแหวนแล้วดูว่ามี service / characteristic อะไรบ้าง เพื่อนำไปตั้งค่า</p>
+  <button class="btn gold btn-tight mt-s" onclick="ringExplore()">เริ่มสำรวจ</button>
+  <pre class="rx-log" id="rxLog" hidden></pre>
+  <button class="btn sec btn-tight" id="rxCopy" hidden onclick="ringCopyLog()">คัดลอกผลลัพธ์</button></div>
+ <div class="card"><h3>⚙️ ตั้งค่าขั้นสูง (JSON)</h3><p class="text-sm">ใส่ UUID จากเอกสารของผู้ขาย หรือจากแอป nRF Connect</p>
+  <textarea id="rxJson" class="rx-json" spellcheck="false" rows="14" aria-label="การตั้งค่าแหวน JSON"></textarea>
+  <button class="btn pri" onclick="ringSaveJson()">บันทึกการตั้งค่า</button>
+  <details class="rx-help"><summary>รูปแบบที่รองรับ</summary>
+   <p><b>hr / temp / steps / battery</b>: { service, char, parse, offset?, scale? }<br><b>alert</b>: { service, char, write: "01" }<br><b>service / char</b>: ชื่อมาตรฐาน (heart_rate), แบบสั้น "0xfff0" หรือ UUID เต็ม<br><b>parse</b>: hr, uint8, uint16le, int16le, uint32le<br><b>namePrefix</b>: ชื่ออุปกรณ์ขึ้นต้นด้วย ใช้กรองตอนค้นหา<br>ไม่ใช้ค่าไหนให้ใส่ null</p></details></div>
 </section>
 
 <!-- Bottom nav -->
